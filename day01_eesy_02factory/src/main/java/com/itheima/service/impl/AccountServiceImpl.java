@@ -2,6 +2,7 @@ package com.itheima.service.impl;
 
 import com.itheima.dao.IAccountDao;
 import com.itheima.dao.impl.AccountImpl;
+import com.itheima.factory.BeanFactory;
 import com.itheima.service.IAccountService;
 
 /**
@@ -14,7 +15,8 @@ import com.itheima.service.IAccountService;
  */
 public class AccountServiceImpl implements IAccountService {
 
-    private IAccountDao accountDao = new AccountImpl();
+//    private IAccountDao accountDao = new AccountImpl();
+    private IAccountDao accountDao = (IAccountDao) BeanFactory.getBean("accountDao");
 
     public void saveAccount() {
         accountDao.saveAccount();

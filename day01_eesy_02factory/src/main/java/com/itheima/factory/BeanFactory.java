@@ -1,5 +1,8 @@
 package com.itheima.factory;
 
+import java.io.InputStream;
+import java.util.Properties;
+
 /**
  * @author ShiWei
  * @date 2021/3/17 - 19:51
@@ -18,4 +21,35 @@ package com.itheima.factory;
  *     我的配置文件可以是xml也可以是properties
  */
 public class BeanFactory {
+    //定义一个Properties对象
+    private static Properties props;
+
+    //使用静态代码块为Properties对象赋值
+    static {
+        try {
+            //实例化对象
+            props = new Properties();
+            //获取properties文件的流对象
+            InputStream in = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
+            props.load(in);
+        } catch (Exception e) {
+            throw new ExceptionInInitializerError("初始化properties失败！");
+        }
+    }
+
+    /**
+     * 根据Bean的名称获取bean对象
+     * @param beanName
+     * @return
+     */
+    public static Object getBean(String beanName) {
+        Object bean = null;
+        try {
+            String beanPath = props.getProperty(beanName);
+            bean = Class.forName(beanPath).newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
 }
