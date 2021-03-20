@@ -40,7 +40,7 @@ public class BeanFactory {
             InputStream in = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
             props.load(in);
             //实例化容器
-            beans = new HashMap<>();
+            beans = new HashMap<String, Object>();
             //取出配置文件中所有的key
             Enumeration keys = props.keys();
             //遍历枚举

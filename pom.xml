@@ -12,6 +12,7 @@
         <module>day01_eesy_01jdbc</module>
         <module>day01_eesy_02factory</module>
         <module>day01_eesy_03spring</module>
+        <module>day01_eesy_04bean</module>
     </modules>
 
 
