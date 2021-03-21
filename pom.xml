@@ -13,6 +13,7 @@
         <module>day01_eesy_02factory</module>
         <module>day01_eesy_03spring</module>
         <module>day01_eesy_04bean</module>
+        <module>day01_eesy_05di</module>
     </modules>
 
 
