@@ -4,6 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- 三个重要的点:
+             (1) 要看出QueryRunner也需要注入；
+             (2) 在注入QueryRunner时，我们的数据源也可以实现配置，并且把连接数据库的信息也注入进来；
+             (3) 能不能看出来QueryRunner如果是单例对象，面临多个DAO同时使用时，有可能产生线程安全问题，所以要配置scope=prototype，每次使用都要创建对象。
+    -->
+
     <!-- 配置Service对象 -->
     <bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl">
         <!-- 注入dao -->

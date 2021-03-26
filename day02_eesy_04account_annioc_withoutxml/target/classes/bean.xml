@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- 刚才讲的注解都是解决了自己写的类上加一个注解，而面对下面那个对象(不是自己写的)，我们该怎么做？下一个工程进行讲解，完全脱离bean.xml配置文件。 -->
+
+    <!-- 配置QueryRunner
+        下面这个配置和配置类中写的createQueryRunner方法不一样，下面这个配置不仅会创建对象，还会放到IOC容器中，key为id(runner)，value为QueryRunner对象；而配置类中的createQueryRunner方法只能创建对象，不会放到IOC容器中。
+        如果我有一个注解，能够实现把配置类中createQueryRunner方法的返回值存入spring容器中，那么它们就是相等的。这个注解就是@Bean。
+    -->
+<!--    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">-->
+<!--        &lt;!&ndash; 注入数据源 &ndash;&gt;-->
+<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
+<!--    </bean>-->
+
+    <!-- 配置数据源 -->
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        &lt;!&ndash; 连接数据库的必备信息 &ndash;&gt;-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring_learn"></property>-->
+<!--        <property name="user" value="root"></property>-->
+<!--        <property name="password" value="1109"></property>-->
+<!--    </bean>-->
+</beans>

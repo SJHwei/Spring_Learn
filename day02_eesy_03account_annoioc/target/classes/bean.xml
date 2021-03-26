@@ -17,6 +17,10 @@
 
 <!-- 基于xml的和基于注解的名称空间是不一样的 -->
 
+
+<!-- 这里面有两个内容：一个是component-scan，一个是对象的创建 -->
+<!-- 刚才讲的注解都是解决了自己写的类上加一个注解，而面对下面那个对象(不是自己写的)，我们该怎么做？下一个工程进行讲解，完全脱离bean.xml配置文件。 -->
+
     <!-- 告知spring在创建容器时要扫描的包 -->
     <context:component-scan base-package="com.itheima"></context:component-scan>
 
