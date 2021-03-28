@@ -18,6 +18,7 @@
         <module>day02_eesy_02account_xmlioc</module>
         <module>day02_eesy_03account_annoioc</module>
         <module>day02_eesy_04account_annioc_withoutxml</module>
+        <module>day03_eesy_01account</module>
     </modules>
 
     <!-- Javax Annotation -->
