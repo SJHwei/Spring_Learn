@@ -14,12 +14,20 @@
         在事务管理控制中，业务层进行事务管理，持久层获取连接。
     -->
 
+    <!-- 配置代理的service -->
+    <bean id="proxyAccountService" factory-bean="beanFactory" factory-method="getAccountService"></bean>
+
+    <!-- 配置beanfactory -->
+    <bean id="beanFactory" class="com.itheima.factory.BeanFactory">
+        <property name="accountService" ref="accountService"></property>
+        <!-- 注入事务管理器 -->
+        <property name="txManager" ref="txManager"></property>
+    </bean>
+
     <!-- 配置Service对象 -->
     <bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl">
         <!-- 注入dao -->
         <property name="accountDao" ref="accountDao"></property>
-        <!-- 注入事务管理器 -->
-        <property name="txManager" ref="txManager"></property>
     </bean>
 
     <!-- 配置Dao对象 -->
