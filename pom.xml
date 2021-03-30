@@ -21,6 +21,7 @@
         <module>day03_eesy_01account</module>
         <module>day03_eesy_02proxy</module>
         <module>day03_eesy_03springAOP</module>
+        <module>day03_eesy_04adviceType</module>
     </modules>
 
     <!-- Javax Annotation -->
