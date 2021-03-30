@@ -15,25 +15,33 @@
 
     <!-- 配置AOP -->
     <aop:config>
-        <!-- 配置切面 -->
-        <aop:aspect id="logAdvice" ref="logger">
-            <!-- 配置前置通知：在切入点方法执行之前执行 -->
-            <aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>
 
-            <!-- 配置后置通知：在切入点方法正常执行之后执行，它和异常通知永远只能执行一个 -->
-            <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>
-
-            <!-- 配置异常通知：在切入点方法执行产生异常之后执行，它和后置通知永远只能执行一个 -->
-            <aop:after-throwing method="afterThrowPrintLog" pointcut-ref="pt1"></aop:after-throwing>
-
-            <!-- 配置最终通知：无论切入点方法是否正常执行他都会在其后面执行 -->
-            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>
-
-            <!-- 配置切入点表达式，id属性用于指定表达式的唯一标志，espression属性用于指定表达式内容
+        <!-- 配置切入点表达式，id属性用于指定表达式的唯一标志，espression属性用于指定表达式内容
                 此标签写在aop:aspect标签内部，只能当前切面使用。
                 它还可以写在aop:aspect外面，此时就变成了所有切面可用。
-            -->
-            <aop:pointcut id="pt1" expression="execution(* com.itheima.service.impl.*.*(..))"></aop:pointcut>
+        -->
+        <!--
+            注意：下面这个标签如果放在切面后面就会报错，这个标签必须放在切面之前。这是最上面约束要求的。
+            技巧：不管以后遇到什么样的配置，当你发现之前能用，改个位置就不能用的时候，首先要考虑的问题就是是否有约束上的要求。
+        -->
+        <aop:pointcut id="pt1" expression="execution(* com.itheima.service.impl.*.*(..))"></aop:pointcut>
+
+        <!-- 配置切面 -->
+        <aop:aspect id="logAdvice" ref="logger">
+            <!-- 配置前置通知：在切入点方法执行之前执行
+            <aop:before method="beforePrintLog" pointcut-ref="pt1"></aop:before>-->
+
+            <!-- 配置后置通知：在切入点方法正常执行之后执行，它和异常通知永远只能执行一个
+            <aop:after-returning method="afterReturningPrintLog" pointcut-ref="pt1"></aop:after-returning>-->
+
+            <!-- 配置异常通知：在切入点方法执行产生异常之后执行，它和后置通知永远只能执行一个
+            <aop:after-throwing method="afterThrowPrintLog" pointcut-ref="pt1"></aop:after-throwing>-->
+
+            <!-- 配置最终通知：无论切入点方法是否正常执行他都会在其后面执行
+            <aop:after method="afterPrintLog" pointcut-ref="pt1"></aop:after>-->
+
+            <!-- 配置环绕通知，详细注释请看Logger类中 -->
+            <aop:around method="aroundPrintLog" pointcut-ref="pt1"></aop:around>
         </aop:aspect>
     </aop:config>
 
