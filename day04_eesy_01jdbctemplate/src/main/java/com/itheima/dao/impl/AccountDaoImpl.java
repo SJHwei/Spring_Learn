@@ -4,6 +4,7 @@ import com.itheima.dao.IAccountDao;
 import com.itheima.domain.Account;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import java.util.List;
 
@@ -13,23 +14,17 @@ import java.util.List;
  * <p>
  * 账户的持久层实现类
  */
-public class AccountImpl implements IAccountDao {
-
-    private JdbcTemplate jdbcTemplate;
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
+public class AccountDaoImpl extends JdbcDaoSupport implements IAccountDao {
 
     @Override
     public Account findAccountById(Integer accountId) {
-        List<Account> accounts = jdbcTemplate.query("select * from account where id = ?", new BeanPropertyRowMapper<Account>(Account.class), accountId);
+        List<Account> accounts = super.getJdbcTemplate().query("select * from account where id = ?", new BeanPropertyRowMapper<Account>(Account.class), accountId);
         return accounts.isEmpty() ? null : accounts.get(0);
     }
 
     @Override
     public Account findAccountByName(String accountName) {
-        List<Account> accounts = jdbcTemplate.query("select * from account where name = ?", new BeanPropertyRowMapper<Account>(Account.class), accountName);
+        List<Account> accounts = super.getJdbcTemplate().query("select * from account where name = ?", new BeanPropertyRowMapper<Account>(Account.class), accountName);
         if (accounts.isEmpty()) {
             return null;
         }
@@ -41,6 +36,6 @@ public class AccountImpl implements IAccountDao {
 
     @Override
     public void updateAccount(Account account) {
-        jdbcTemplate.update("update account set name=?, money=? where id=?", account.getName(), account.getMoney(), account.getId());
+        super.getJdbcTemplate().update("update account set name=?, money=? where id=?", account.getName(), account.getMoney(), account.getId());
     }
 }

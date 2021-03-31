@@ -5,14 +5,16 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- 配置账户的持久层 -->
-    <bean id="accountDao" class="com.itheima.dao.impl.AccountImpl">
-        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
-    </bean>
-
-    <!-- 配置JdbcTemplate -->
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+    <bean id="accountDao" class="com.itheima.dao.impl.AccountDaoImpl">
+<!--        <property name="jdbcTemplate" ref="jdbcTemplate"></property>-->
+        <!-- 当注入datasource时，它会触发jdbcdaosupport中的setDataSource方法，从而为我们创建一个jdbctemplate -->
         <property name="dataSource" ref="dataSource"></property>
     </bean>
+
+    <!-- 配置JdbcTemplate
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>-->
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
