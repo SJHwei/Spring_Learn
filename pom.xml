@@ -34,6 +34,7 @@
         <module>day04_eesy_02account_aoptx_xml</module>
         <module>day04_eesy_03account_aoptx_anno</module>
         <module>day04_eesy_04tx</module>
+        <module>day04_eesy_05tx_xml</module>
     </modules>
 
     <!-- Javax Annotation -->
