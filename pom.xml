@@ -36,6 +36,7 @@
         <module>day04_eesy_04tx</module>
         <module>day04_eesy_05tx_xml</module>
         <module>day04_eesy_06tx_anno</module>
+        <module>day04_eesy_07anno_tx_withoutxml</module>
     </modules>
 
     <!-- Javax Annotation -->
