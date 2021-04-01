@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!-- 配置Service对象 -->
+    <bean id="accountService" class="com.itheima.service.impl.AccountServiceImpl">
+        <!-- 注入dao -->
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+
+    <!-- 配置Dao对象 -->
+    <bean id="accountDao" class="com.itheima.dao.impl.AccountDaoImpl">
+        <!-- 注入QueryRunner -->
+        <property name="runner" ref="runner"></property>
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <!-- 配置QueryRunner -->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+<!--         注入数据源 -->
+<!--         注意：由于QueryRunner中没有set方法，所以不能使用set方法注入的方法，要使用构造函数注入的方法 -->
+<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
+    </bean>
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 连接数据库的必备信息 -->
+        <property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/spring_learn"></property>
+        <property name="user" value="root"></property>
+        <property name="password" value="1109"></property>
+    </bean>
+
+    <!-- 配置Connection的工具类ConnectionUtils -->
+    <bean id="connectionUtils" class="com.itheima.utils.ConnectionUtils">
+        <!-- 注入数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- 配置事务管理器，此处已经把通知类交给spring来管理了，那剩下的就是配置aop了 -->
+    <bean id="txManager" class="com.itheima.utils.TransactionManager">
+        <!-- 注入ConnectionUtils -->
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <!-- 配置aop -->
+    <aop:config>
+        <!-- 配置通用的切入点表达式 -->
+        <aop:pointcut id="pt1" expression="execution(* com.itheima.service.impl.*.*(..))"></aop:pointcut>
+        <aop:aspect id="txAdvice" ref="txManager">
+            <!-- 配置前置通知：开启事务 -->
+            <aop:before method="beginTransaction" pointcut-ref="pt1"></aop:before>
+            <!-- 配置后置通知：提交事务 -->
+            <aop:after-returning method="commit" pointcut-ref="pt1"></aop:after-returning>
+            <!-- 配置异常通知：回滚事务 -->
+            <aop:after-throwing method="rollback" pointcut-ref="pt1"></aop:after-throwing>
+            <!-- 配置最终通知：释放连接 -->
+            <aop:after method="release" pointcut-ref="pt1"></aop:after>
+        </aop:aspect>
+    </aop:config>
+</beans>
