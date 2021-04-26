@@ -35,7 +35,7 @@ public class Client {
          *         使用Enhancer类中的create方法
          *     创建代理对象的要求：
          *         被代理类不能是最终类。
-         *     newProxyInstance方法的参数：
+         *     create方法的参数：
          *         （1）Class：字节码
          *             它是用于指定被代理对象的字节码。
          *         （2）Callback：用于提供增强的代码。

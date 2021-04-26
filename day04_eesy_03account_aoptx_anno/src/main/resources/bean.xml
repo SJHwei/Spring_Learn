@@ -17,7 +17,7 @@
     <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
 <!--         注入数据源 -->
 <!--         注意：由于QueryRunner中没有set方法，所以不能使用set方法注入的方法，要使用构造函数注入的方法 -->
-<!--        <constructor-arg name="ds" ref="dataSource"></constructor-arg>-->
+        <constructor-arg name="ds" ref="dataSource"></constructor-arg>
     </bean>
 
     <!-- 配置数据源 -->
